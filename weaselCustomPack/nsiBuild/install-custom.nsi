@@ -173,12 +173,13 @@ program_files:
   ${GetOptions} $R0 "/T" $R1
   IfErrors +2 0
   StrCpy $R2 "/t"
-
-  ExecWait '"$INSTDIR\WeaselSetup.exe" $R2'
-
+  
   ; run as user...
   ExecWait "$INSTDIR\WeaselDeployer.exe /install"
+  
+  ExecWait '"$INSTDIR\WeaselSetup.exe" $R2'
 
+  ExecWait "$INSTDIR\WeaselDeployer.exe"
   ; Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Weasel" "DisplayName" "小狼毫輸入法"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Weasel" "UninstallString" '"$INSTDIR\uninstall.exe"'

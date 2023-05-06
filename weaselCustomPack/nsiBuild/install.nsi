@@ -7,7 +7,7 @@
 Unicode true
 
 !ifndef WEASEL_VERSION
-!define WEASEL_VERSION 1.0.0
+!define WEASEL_VERSION 0.14.3
 !endif
 
 !ifndef WEASEL_BUILD
@@ -173,12 +173,13 @@ program_files:
   ${GetOptions} $R0 "/T" $R1
   IfErrors +2 0
   StrCpy $R2 "/t"
-
-  ExecWait '"$INSTDIR\WeaselSetup.exe" $R2'
-
+  
   ; run as user...
   ExecWait "$INSTDIR\WeaselDeployer.exe /install"
+  
+  ExecWait '"$INSTDIR\WeaselSetup.exe" $R2'
 
+  ExecWait "$INSTDIR\WeaselDeployer.exe"
   ; Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Weasel" "DisplayName" "小狼毫輸入法"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Weasel" "UninstallString" '"$INSTDIR\uninstall.exe"'
